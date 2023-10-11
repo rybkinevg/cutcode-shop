@@ -13,6 +13,7 @@
     },
     "dependencies": {
         "@tailwindcss/line-clamp": "^0.4.4",
+        "autoprefixer": "^10.4.16",
         "sass": "^1.69.2"
     }
 }

@@ -1,17 +1,23 @@
-# CutCude Shop
+# CutCode Shop
 
 ## Installation
 
-Make storage symlink to the `app/public` directory:
+Install composer dependencies:
 
 ```shell
-php artisan storage:link
+composer install
 ```
 
-Run database migrations:
+Install npm dependencies:
 
 ```shell
-php artisan migrate
+npm install
+```
+
+Run the application installation command:
+
+```shell
+php artisan shop:install
 ```
 
 ## Deployment

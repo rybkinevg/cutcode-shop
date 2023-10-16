@@ -29,19 +29,35 @@ class AppServiceProvider extends ServiceProvider
         Model::preventLazyLoading(!app()->isProduction());
         Model::preventSilentlyDiscardingAttributes(!app()->isProduction());
 
+        //TODO: addition of loggers below will make sense only in production env.
+
+        // long database connection handler
         DB::whenQueryingForLongerThan(500, function (Connection $connection, QueryExecuted $event) {
             $message = 'whenQueryingForLongerThan: ' . $connection->query()->toSql();
 
             logger()->channel(TelegramLogger::CHANNEL_NAME)->debug($message);
         });
 
+        // long database query execution (milliseconds) handler
+        DB::listen(function ($query) {
+            if ($query->time > 500) {
+                $message = 'Long query execution: ' . $query->sql;
+
+                logger()->channel(TelegramLogger::CHANNEL_NAME)->debug($message);
+            }
+        });
+
+        /** @var Kernel $kernel */
         $kernel = app(Kernel::class);
 
+        // long HTTP query execution handler
         $kernel->whenRequestLifecycleIsLongerThan(
             CarbonInterval::seconds(4),
-            fn() => logger()->channel(TelegramLogger::CHANNEL_NAME)->debug(
-                'whenRequestLifecycleIsLongerThan: ' . request()->url()
-            )
+            function ($requestStartedAt, $request, $response) {
+                $message = 'whenRequestLifecycleIsLongerThan: ' . $request->url();
+
+                logger()->channel(TelegramLogger::CHANNEL_NAME)->debug($message);
+            }
         );
     }
 }

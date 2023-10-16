@@ -12,6 +12,7 @@ trait HasSlug
 
     protected static function bootHasSlug(): void
     {
+        // TODO: slug should be unique per model
         static::creating(function (Model $model) {
             $model->slug = $model->slug ?? str($model->{$this->sluggableField})->slug();
         });

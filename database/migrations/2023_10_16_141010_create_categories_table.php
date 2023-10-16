@@ -17,6 +17,7 @@ return new class extends Migration {
 
     public function down(): void
     {
+        // TODO: will be refactored via stubs
         if (!app()->isLocal()) {
             return;
         }

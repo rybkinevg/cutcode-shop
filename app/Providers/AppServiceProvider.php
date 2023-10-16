@@ -5,9 +5,7 @@ namespace App\Providers;
 use App\Http\Kernel;
 use App\Logging\Telegram\TelegramLogger;
 use Carbon\CarbonInterval;
-use Illuminate\Database\Connection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,13 +28,6 @@ class AppServiceProvider extends ServiceProvider
         Model::shouldBeStrict(!app()->isProduction());
 
         //TODO: addition of loggers below will make sense only in production env.
-
-        // long database connection handler
-        DB::whenQueryingForLongerThan(500, function (Connection $connection, QueryExecuted $event) {
-            $message = 'whenQueryingForLongerThan: ' . $connection->query()->toSql();
-
-            logger()->channel(TelegramLogger::CHANNEL_NAME)->debug($message);
-        });
 
         // long database query execution (milliseconds) handler
         DB::listen(function ($query) {

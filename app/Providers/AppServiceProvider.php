@@ -26,8 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Model::preventLazyLoading(!app()->isProduction());
-        Model::preventSilentlyDiscardingAttributes(!app()->isProduction());
+        // composes application behavior during development
+        Model::shouldBeStrict(!app()->isProduction());
 
         //TODO: addition of loggers below will make sense only in production env.
 

@@ -11,17 +11,6 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
-    {
-        //
-    }
-
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         // composes application behavior during development
@@ -38,11 +27,8 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
-        /** @var Kernel $kernel */
-        $kernel = app(Kernel::class);
-
         // long HTTP query execution handler
-        $kernel->whenRequestLifecycleIsLongerThan(
+        app(Kernel::class)->whenRequestLifecycleIsLongerThan(
             CarbonInterval::seconds(4),
             function ($requestStartedAt, $request, $response) {
                 $message = 'whenRequestLifecycleIsLongerThan: ' . $request->url();

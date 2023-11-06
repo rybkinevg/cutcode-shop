@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\LoginFormRequest;
 use Illuminate\Http\RedirectResponse;
 
 class LoginController extends Controller
@@ -13,7 +15,7 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function login(LoginRequest $request): RedirectResponse
+    public function login(LoginFormRequest $request): RedirectResponse
     {
         $credentials = $request->validated();
 

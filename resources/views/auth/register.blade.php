@@ -7,7 +7,8 @@
         @csrf
 
         <x-slot:title>Регистрация аккаунта</x-slot:title>
-        <x-slot:action>POST</x-slot:action>
+        <x-slot:method>POST</x-slot:method>
+        <x-slot:action>{{ route('register-action') }}</x-slot:action>
 
         <x-forms.text-input
             type="text"

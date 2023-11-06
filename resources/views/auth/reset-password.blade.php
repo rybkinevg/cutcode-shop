@@ -7,13 +7,17 @@
         @csrf
 
         <x-slot:title>Восстановление пароля</x-slot:title>
-        <x-slot:action>POST</x-slot:action>
+        <x-slot:method>POST</x-slot:method>
+        <x-slot:action>{{ route('reset-password-action') }}</x-slot:action>
+
+        <input type="hidden" name="token" value="{{ $token }}"/>
 
         <x-forms.text-input
             type="email"
             name="email"
             placeholder="E-mail"
             required="true"
+            value="{{ request('email') }}"
             :isError="$errors->has('email')"
         />
         @error('email')

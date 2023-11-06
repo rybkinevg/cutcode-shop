@@ -6,11 +6,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginFormRequest;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
 class LoginController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         return view('auth.login');
     }

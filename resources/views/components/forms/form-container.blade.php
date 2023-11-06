@@ -4,9 +4,9 @@
         {{ $slot }}
     </form>
 
-    {{ $social }}
+    {{ $social ?? '' }}
 
-    {{ $buttons }}
+    {{ $buttons ?? '' }}
 
     <ul class="flex flex-col md:flex-row justify-between gap-3 md:gap-4 mt-14 md:mt-20">
         <li>

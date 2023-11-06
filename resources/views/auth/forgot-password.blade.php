@@ -7,7 +7,8 @@
         @csrf
 
         <x-slot:title>Забыли пароль</x-slot:title>
-        <x-slot:action>POST</x-slot:action>
+        <x-slot:method>POST</x-slot:method>
+        <x-slot:action>{{ route('forgot-password-action') }}</x-slot:action>
 
         <x-forms.text-input
             type="email"
